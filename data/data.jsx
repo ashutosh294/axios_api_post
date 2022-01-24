@@ -68,15 +68,6 @@ export function Data() {
 //     const { data, isLoading } = useQuery('posts',fetchData)
 
 
-
-//     if (isLoading) {
-
-//         return <h2> Loading Data.. </h2>
-
-//     }
-
-
-
 //     return (
 
 //         <>
