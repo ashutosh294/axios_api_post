@@ -1,97 +1,26 @@
-import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+
 import axios from "axios";
-const POST_API = "https://jsonplaceholder.typicode.com/posts";
 
-export function Data() {
-    const [posts, setPosts] = useState([]);
-    useEffect(() => {
-        axios
-            .get(POST_API)
-            .then(response => {
-                
-                
-                setPosts(response.data);
-                return response.json
-            })
-    }, []);
+export const Data = () => {
+  const { data, isFetching } = useQuery("posts", () => {
+    return axios.get(" https://jsonplaceholder.typicode.com/posts");
+  });
 
-    return (
-        <div className="App">
-            
-                    <div>
+  if (isFetching) {
+    return <h2> Data is getting fetched </h2>;
+  }
 
-                   {posts.map((post) => (
-
-                     <div key={post.id}>
-
-    userid={post.userId}
-
-    id={post.id}
-
-    title={post.title}
-
-    body={post.body}
-
-
-  </div>
-
-))}
-
-</div>
-
-
-                    {/* <div><ul><li>{posts.id}:{posts.userId}:{posts.title}:{posts.body}</li></ul></div> */}
-              
-        </div>
-    )  
-}
-
-
-
-// using usequery
-
-
-// import { useQuery } from "react-query"
-
-// import axios from "axios"
-
-
-
-// const fetchData = () => {
-
-//     return axios.get(' https://jsonplaceholder.typicode.com/posts')
-
-// }
-
-// export const Data = () => {
-
-//     const { data, isLoading } = useQuery('posts',fetchData)
-
-
-//     return (
-
-//         <>
-
-//         <div>
-
-//             {data.data.map((user,index) => (
-
-//                 <div key = {index}>title = {user.title}</div>
-
-//             ))}
-
-//         </div>
-
-//         </>
-
-//     )
-
-// }
-
-
-
-
-
+  return (
+    <>
+      <div>
+        {data.data.map((post, index) => (
+          <div key={index}>userId = {post.userId}</div>
+        ))}
+      </div>
+    </>
+  );
+};
 
 
 
